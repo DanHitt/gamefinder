@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #3rd party apps
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'crispy_forms',
+    #local apps
+    'main',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -100,6 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+try:
+    from allauth_settings import *
+except Exception as e:
+    pass
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -119,3 +133,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+try:
+    from local_settings import *
+except Exception as e:
+    pass
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
