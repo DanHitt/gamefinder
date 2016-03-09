@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block head_title %}{% endblock head_title %}</title>
+	</head>
+	<body>
+		<script>
+		  window.fbAsyncInit = function() 
+		  {
+			FB.init
+			({
+			  appId      : '1034494419940485',
+			  xfbml      : true,
+			  version    : 'v2.5'
+			});
+		  };
+
+		  (function(d, s, id)
+		  {
+			 var js, fjs = d.getElementsByTagName(s)[0];
+			 if (d.getElementById(id)) {return;}
+			 js = d.createElement(s); js.id = id;
+			 js.src = "//connect.facebook.net/en_US/sdk.js";
+			 fjs.parentNode.insertBefore(js, fjs);
+		   }
+		   (document, 'script', 'facebook-jssdk'));
+		</script>
+		<div
+		  class="fb-like"
+		  data-share="true"
+		  data-width="450"
+		  data-show-faces="true">
+		</div>
+		{% block body %}
+		{% block content %}
+		{% endblock content %}
+		{% endblock body %}
+		{% block extra_body %}
+		{% endblock extra_body %}
+	</body>
+</html>
+
+
+
+
