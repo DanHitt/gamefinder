@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en-US">
+
+
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+
+	<title>Places Searchbox</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+	<link rel="stylesheet" type="text/css" href=" {% static 'css/index.css' %} ">
+
+	<!--JS (load angular, ui-router, and custom js file) -->
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+	
+
+	<body>
+		{% block content %} <!-- add this (also needs extends) to the allauth base.html -->
+			<script>
+			  window.fbAsyncInit = function() 
+			  {
+				FB.init
+				({
+				  appId      : '1034494419940485',
+				  xfbml      : true,
+				  version    : 'v2.5'
+				});
+			  };
+
+			  (function(d, s, id)
+			  {
+				 var js, fjs = d.getElementsByTagName(s)[0];
+				 if (d.getElementById(id)) {return;}
+				 js = d.createElement(s); js.id = id;
+				 js.src = "//connect.facebook.net/en_US/sdk.js";
+				 fjs.parentNode.insertBefore(js, fjs);
+			   }
+			   (document, 'script', 'facebook-jssdk'));
+			</script>
+			<div
+			  class="fb-like"
+			  data-share="true"
+			  data-width="450"
+			  data-show-faces="true">
+			</div>
+
+
+			<div class="container" ng-app="myApp">
+				<div class="row">
+					<div class="col-md-12">
+						<div  ng-controller='gameStoresCtrl'>
+							<ul>
+    							<li ng-repeat="store in gameStores">
+
+									Store:{{store.name}} - <em>{{store.store_hours}}</em>
+								</li>
+							</ul>
+						</div>				
+					</div>
+				</div>
+			</div> <!-- END container myApp -->
+
+			<!--JS (load angular) -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+			<script src="{% static 'angular/index.js' %}"></script>
+		{% endblock %}
+	</body>
+
+</html>
+
+
+
+	

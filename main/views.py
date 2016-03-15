@@ -6,7 +6,15 @@ from itertools import chain
 
 from .models import GameStore, Session, Player
 
+
 def home(request):
+	
+
+	context = {}
+
+	return render(request, 'index.html', context)
+
+def base(request):
 	
 
 	context = {}

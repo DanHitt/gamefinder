@@ -21,6 +21,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^base/$', 'main.views.base'),
     url(r'^$', 'main.views.home'),
     url(r'^findstore/', 'main.views.find_store_API', name='findstore'),
     url(r'^storeview/(?P<pk>\d+)/$', 'main.views.store_detail_view_API', name='storeview'),

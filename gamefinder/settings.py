@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'crispy_forms',
+    'autofixture',
     #local apps
     'main',
 ]
