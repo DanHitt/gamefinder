@@ -35,17 +35,15 @@ def find_store_API(request):
 	return HttpResponse(output, content_type='application/json')
 
 
-def store_detail_view_API(request, pk):
-	request.method == 'POST'
+def store_detail_view_API(request, pk): #sessions
 
-	game_store = GameStore.objects.get(pk=pk)
 	sessions = Session.objects.filter(game_store=pk)
 	# players = sessions.interested_players
-	print sessions
-	print "______"
 
-	print"8888"
-	print sessions
+	for session in sessions:
+		print session
+		print "______"
+
 	json = serializers.serialize('json', sessions,)
 	output = json
 

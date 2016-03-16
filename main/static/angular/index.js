@@ -18,10 +18,7 @@ myApp.controller('gameStoresCtrl', function($scope, $http)
         	$scope.clickMe = !$scope.clickMe;
         }
 
-		}
-		// console.log(data.data)
-		// $scope.gameStores = data.data;
-		
+		}		
 
 
 
@@ -38,15 +35,14 @@ myApp.controller('gameStoresCtrl', function($scope, $http)
 					console.log(data.data[x].fields)
 					if (data.data[x].fields.game_store === j)
 					{
-						$scope.sessions[x] = data.data[x].fields
+						$scope.sessions[x] = data.data[x]
 					}
 				}
-				// console.log(data.data)
-				// $scope.gameStores = data.data;
+
 				
 			});
 		}
-		for (var j=1; j < data.data.length; j++)
+		for (var j=1; j <= data.data.length; j++)
 		{
 			addSession(j)
 		}
