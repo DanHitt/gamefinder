@@ -50,21 +50,30 @@
 			  data-show-faces="true">
 			</div>
 
-
+			{% verbatim %}
 			<div class="container" ng-app="myApp">
 				<div class="row">
 					<div class="col-md-12">
-						<div  ng-controller='gameStoresCtrl'>
-							<ul>
-    							<li ng-repeat="store in gameStores">
-
-									Store:{{store.name}} - <em>{{store.store_hours}}</em>
-								</li>
-							</ul>
+						<div  ng-controller='gameStoresCtrl'>								
+							<div ng-repeat="store in gameStores">
+								<div id="store{{ store.pk }}" ng-click="clickMeFunc()">
+									Store: {{ store.fields.name }} - pk: {{ store.pk }} - <em>{{store.fields.store_hours}}</em> index: {{ store.pk }}
+								</div>
+								
+									<ul>
+										<li ng-repeat="session in sessions">
+											<div ng-show="{{$index+1}}=={{ store.pk }} and clickMe">
+												Sessions: {{ session.name }} - store: {{ session.game_store }} - Needed Players: {{ session.needed_players }}
+											</div>
+										</li>
+									</ul>
+								
+							</div>
 						</div>				
 					</div>
 				</div>
-			</div> <!-- END container myApp -->
+			</div> <!-- END container,what te myApp -->
+			{% endverbatim %}
 
 			<!--JS (load angular) -->
 			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
