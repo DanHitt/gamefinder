@@ -3,21 +3,25 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en-US">
+	{% block extra_head%}
+	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<meta charset="utf-8">
+
+		<title>Places Searchbox</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-	<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href=" {% static 'css/index.css' %} ">
 
-	<title>Places Searchbox</title>
+		<!--JS (load ui-router) -->
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-
-	<link rel="stylesheet" type="text/css" href=" {% static 'css/index.css' %} ">
-
-	<!--JS (load ui-router) -->
-
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+					<!--JS (load angular) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<head>
+	{% endblock %}
 	
 
 	<body>
@@ -25,28 +29,47 @@
 
 
 				{% verbatim %}
-				<div ng-app="myApp">
-						<div  ng-controller='gameStoresCtrl'>					
-							<div class="row storeRow" ng-repeat="store in gameStores">
-								<div id="store{{ store.pk }}" ng-click="clickMeFunc()">
-									Store: {{ store.fields.name }} - pk: {{ store.pk }} - <em>{{store.fields.store_hours}}</em> index: {{ store.pk }}
+				<div ng-app="myApp" class="ng-cloak container">
+						<div  ng-controller='gameStoresCtrl'>
+
+							<div class="row">				
+								<div class="sidebar shadow col-md-2">
+					
 								</div>
-								
-								<ul>
-									<li ng-repeat="session in sessions">
-										<div ng-show="{{session.fields.game_store}} == {{ store.pk }} and clickMe"> storepk: {{ store.pk }}
-											Session: {{ session.fields.name }} - store: {{ session.fields.game_store }} - Needed Players: {{ session.fields.needed_players }}
+								<div class="row storeRow ng-cloak col-md-10" ng-repeat="store in gameStores">
+									<div class="gameStoreFull shadow">
+									
+										<div class="gameStore grow" ng-click="clickMe=!clickMe">
+											<h3> Store: {{ store.fields.name }}</h3>
+											<h3> Address: {{ store.fields.full_address }}<br />Store Hours: <em>{{store.fields.store_hours}}</em> </h3>
+											<h4 class="highlight blackbox">
+												CLICK HERE to see our {{ store.fields.sessions.length }} OPEN GAME SESSION(S) scheduled this month
+											</h4>
 										</div>
-									</li>
-								</ul>
+										<div class="gameSessions shadow" ng-show="clickMe">
+											<div class="2ndBorder">
+												<h3>Sessions:</h3>
+												<ul>
+													<div id="store{{ store.pk }}">
+														<li ng-repeat="session in store.fields.sessions">
+														
+															{{ session.fields.name}} - store: {{ session.fields.game_store }} - Needed Players: {{ session.fields.needed_players }} - Spots Left: {{ session.fields.needed_players  }}
+														</li>
+													</div>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
+							
 						</div>				
 				</div> <!-- END myApp -->
-			{% endverbatim %}
+		{% endverbatim %} <!-- END content -->
 		</div> <!-- END container -->
 
-			<!--JS (load angular) -->
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Ubuntu:bold' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
 			<script src="{% static 'angular/index.js' %}"></script>
 		{% endblock %}
 	</body>

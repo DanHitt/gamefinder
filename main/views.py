@@ -24,9 +24,10 @@ def base(request):
 def find_store_API(request):
 	
 	stores = GameStore.objects.all()
-	# joined_collection = list(chain(complexes, listings))r
+	sessions = Session.objects.all()
+	joined_collection = list(chain(stores, sessions))
 
-	json = serializers.serialize('json', stores,)
+	json = serializers.serialize('json', joined_collection,)
 	# complex_output = serializers.serialize('json', complexes, fields=('name', 'address'))
 	# listings_output = serializers.serialize('json', listings, fields=('name', 'address', 'city', 'state'))
 

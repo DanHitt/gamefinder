@@ -6,46 +6,41 @@ myApp.controller('gameStoresCtrl', function($scope, $http)
 	$http.get('http://localhost:8000/findstore/')
 	.then(function(data, status, headers, config)
 	{
-		console.log(status)
-		$scope.gameStores = []
+
+		gameStores = []
+		temp_sessions = []
 		for (var x = 0; x < data.data.length; x++)
 		{
-			console.log(data.data[x].fields)
-			$scope.gameStores[x] = data.data[x]
-			$scope.clickMe = false;
-    	$scope.clickMeFunc = function() 
-    	{
-        	$scope.clickMe = !$scope.clickMe;
-        }
+			if (data.data[x].model == "main.gamestore")
+			{
+				gameStores.push(data.data[x])
 
+
+				$scope.clickMe = false;
+
+      } 
+      else if (data.data[x].model == "main.session")
+      {
+      	temp_sessions.push(data.data[x])
+      }
 		}		
 
 
-
-
-
-		var addSession = function(j)
+		for (var x = 0; x < gameStores.length; x++)
 		{
-			$http.get('http://localhost:8000/storeview/'+j)
-			.then(function(data, status, headers, config)
+			gameStores[x].fields.sessions = []
+			for (var j = 0; j < temp_sessions.length; j++)
 			{
-				$scope.sessions = []
-				for (var x = 0; x < data.data.length; x++)
+				console.log(temp_sessions[j])
+				if (gameStores[x].pk == temp_sessions[j].fields.game_store)
 				{
-					console.log(data.data[x].fields)
-					if (data.data[x].fields.game_store === j)
-					{
-						$scope.sessions[x] = data.data[x]
-					}
+					console.log(gameStores.fields)
+					gameStores[x].fields.sessions.push(temp_sessions[j])
 				}
-
-				
-			});
+			}
 		}
-		for (var j=1; j <= data.data.length; j++)
-		{
-			addSession(j)
-		}
+	$scope.gameStores = gameStores
 	});
 });
 
+// track by $index
