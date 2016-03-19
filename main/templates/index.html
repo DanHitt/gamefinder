@@ -25,7 +25,7 @@
 	
 
 	<body>
-		{% block content %} <!-- add this (also needs extends) to the allauth base.html -->
+		{% block content %} <!-- this coupled with 'extends' adds the block to the allauth base.html -->
 
 
 				{% verbatim %}
@@ -40,8 +40,8 @@
 									<div class="gameStoreFull shadow">
 									
 										<div class="gameStore grow" ng-click="clickMe=!clickMe">
-											<h3> Store: {{ store.fields.name }}</h3>
-											<h3> Address: {{ store.fields.full_address }}<br />Store Hours: <em>{{store.fields.store_hours}}</em> </h3>
+											<h3 class="center_text"> {{ store.fields.name }}</h3>
+											<h3 class="center_text"> Address: {{ store.fields.full_address }}<br />Store Hours: <em>{{store.fields.store_hours}}</em> </h3>
 											<h4 class="highlight blackbox">
 												CLICK HERE to see our {{ store.fields.sessions.length }} OPEN GAME SESSION(S) scheduled this month
 											</h4>
@@ -53,8 +53,13 @@
 													<div id="store{{ store.pk }}">
 														<li ng-repeat="session in store.fields.sessions">
 														
-															{{ session.fields.name}} - store: {{ session.fields.game_store }} - Needed Players: {{ session.fields.needed_players }} - Spots Left: {{ session.fields.needed_players  }}
+															<span class="gameSessionText">
+																{{ session.fields.game }} - {{ session.fields.name}} <h4 class="paddingLeft" > Total Players: {{ session.fields.needed_players }} - Players {{ session.fields.interested_players.length }} - Spots Left: {{ session.fields.needed_players - session.fields.interested_players.length }} </h4><h4 class="paddingLeft"> Game Day: {{ session.fields.datetime_of_game | date:'EEE. MMM. yy @hha' }} - Experience Level to Play: {{ session.fields.experience_range }}</h4>
+
+																
+															</span>
 														</li>
+														<button class="btn btn-danger col-xs-offset-5" ng-click="clickMe=!clickMe">-:Close Tab:-</button>
 													</div>
 												</ul>
 											</div>

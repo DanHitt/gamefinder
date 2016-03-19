@@ -36,43 +36,14 @@ def find_store_API(request):
 	return HttpResponse(output, content_type='application/json')
 
 
-def store_detail_view_API(request, pk): #sessions
 
-	sessions = Session.objects.filter(game_store=pk)
-	# players = sessions.interested_players
-
-	for session in sessions:
-		print session
-		print "______"
-
-	json = serializers.serialize('json', sessions,)
-	output = json
-
-	return HttpResponse(output, content_type='application/json')
+def player_view_API(request):
 
 
-def interested_player_view_API(request, players):
+	player = Player.objects.all()
+	# joined_collection = list(chain(player, joined_collection))
 
-	print players
-	print"----first----"
-	string = []
-	for x in (range(len(players))):
-		print players[x:x+1]
-		print "*"
-		print x
-		string.extend(players[x:x+1])
-	players = string
-	print"----"
-	print players
-	joined_collection = {}
-	for player in players:
-		player = Players.objects.get(interested_players=player)
-		joined_collection = list(chain(player, joined_collection))
-
-
-	print"8888"
-	print joined_collection
-	json = serializers.serialize('json', joined_collection,)
+	json = serializers.serialize('json', player,)
 	output = json
 
 	return HttpResponse(output, content_type='application/json')

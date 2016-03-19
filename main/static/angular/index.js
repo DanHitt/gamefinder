@@ -6,6 +6,7 @@ myApp.controller('gameStoresCtrl', function($scope, $http)
 	$http.get('http://localhost:8000/findstore/')
 	.then(function(data, status, headers, config)
 	{
+		
 
 		gameStores = []
 		temp_sessions = []
