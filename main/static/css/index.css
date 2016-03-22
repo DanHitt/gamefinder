@@ -27,9 +27,22 @@
 	z-index: 10;
 
 }
+.gamePlayers{
+	background-color: #C2C484;
+	padding: 10px 20px 20px 20px;
+	font-family: 'Vollkorn', Georgia, Times, serif;
+	border-style: none solid solid solid;
+	border-width: 20px;
+	border-color: #7BA7A1;
+	z-index: 10;
+
+}
 
 .gameSessionText {
 	font-size: 2em;
+}
+.gamePlayersText{
+	font-size: 1em;
 }
 .gameSessionText:hover {
 	font-size: 2.2em;
@@ -37,7 +50,7 @@
 	
 }
 .paddingLeft{
-	padding-left: 10%;
+	padding-left: 7%;
 }
 .center_text {
 	text-align: center;

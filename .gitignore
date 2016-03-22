@@ -1,1 +1,9 @@
-gamefinder.sublime-project
+*.sublime-project
+node_modules/
+*.pyc 
+.DS_Store
+bower_components/
+local_settings.py
+staticfiles/
+*.orig
+temporary.txt

@@ -13,13 +13,14 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 
+
 		<link rel="stylesheet" type="text/css" href=" {% static 'css/index.css' %} ">
 
-		<!--JS (load ui-router) -->
-
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
 					<!--JS (load angular) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+
+		
 	<head>
 	{% endblock %}
 	
@@ -34,34 +35,69 @@
 
 							<div class="row">				
 								<div class="sidebar shadow col-md-2">
-					
-								</div>
-								<div class="row storeRow ng-cloak col-md-10" ng-repeat="store in gameStores">
-									<div class="gameStoreFull shadow">
-									
-										<div class="gameStore grow" ng-click="clickMe=!clickMe">
-											<h3 class="center_text"> {{ store.fields.name }}</h3>
-											<h3 class="center_text"> Address: {{ store.fields.full_address }}<br />Store Hours: <em>{{store.fields.store_hours}}</em> </h3>
-											<h4 class="highlight blackbox">
-												CLICK HERE to see our {{ store.fields.sessions.length }} OPEN GAME SESSION(S) scheduled this month
-											</h4>
-										</div>
-										<div class="gameSessions shadow" ng-show="clickMe">
-											<div class="2ndBorder">
-												<h3>Sessions:</h3>
-												<ul>
-													<div id="store{{ store.pk }}">
-														<li ng-repeat="session in store.fields.sessions">
-														
-															<span class="gameSessionText">
-																{{ session.fields.game }} - {{ session.fields.name}} <h4 class="paddingLeft" > Total Players: {{ session.fields.needed_players }} - Players {{ session.fields.interested_players.length }} - Spots Left: {{ session.fields.needed_players - session.fields.interested_players.length }} </h4><h4 class="paddingLeft"> Game Day: {{ session.fields.datetime_of_game | date:'EEE. MMM. yy @hha' }} - Experience Level to Play: {{ session.fields.experience_range }}</h4>
+									<h4>Add Filters</h4>
+									<div id="the-basics">
+										<input class="typeahead" type="text" placeholder="Search Your State" ng-model="checkState">
+									</div>
+								</div><!--end sidebar-->
 
+
+								<div class="row storeRow ng-cloak col-md-10" ng-repeat="store in gameStores">
+									<div ng-if="!checkState"> {{ checkState }}---checkstate
+										<div ng-show="store.fields.state | lowercase == 'checkState'">
+									</div>
+										<div class="gameStoreFull shadow">
+										
+											<div class="gameStore grow" ng-click="showSessions=!showSessions">
+												<h3 class="center_text"> {{ store.fields.name }}</h3>
+												<h3 class="center_text"> Address: {{ store.fields.full_address }}<br />Store Hours: <em>{{store.fields.store_hours}}</em> </h3>
+												<h4 class="highlight blackbox">
+													CLICK HERE to see our {{ store.fields.sessions.length }} OPEN GAME SESSION(S) scheduled this month
+												</h4>
+											</div>
+											<div class="gameSessions shadow" ng-show="showSessions">
+												<div class="2ndBorder">
+													<h3>Sessions:</h3>
+													<ul>
+														<div id="store{{ store.pk }}">
+															<ul ng-repeat="session in store.fields.sessions">
+															
+																<span class="gameSessionText">
+																	{{ session.fields.game }} - {{ session.fields.name}} 
+																	<h4 class="paddingLeft"> 
+																		Total Players: {{ session.fields.needed_players }} - Players {{ session.fields.interested_players.length }} - Spots Left: {{ session.fields.needed_players - session.fields.interested_players.length }} 
+																	</h4>
+																	<h4 class="paddingLeft"> 
+																		Game Day: {{ session.fields.datetime_of_game | date:'EEE. MMM. yy @hha' }} - Experience Level to Play: {{ session.fields.experience_range }}
+																	</h4>
+																</span>
+																<div class"paddingLeft">
+																		<button class="btn btn-success" ng-click="showPlayers=!showPlayers">
+																			<span ng-show="!showPlayers">SHOW PLAYERS</span>
+																			<span ng-show="showPlayers">HIDE PLAYERS</span>
+																	</button>
+																</div>
+																															
+															
 																
-															</span>
-														</li>
-														<button class="btn btn-danger col-xs-offset-5" ng-click="clickMe=!clickMe">-:Close Tab:-</button>
-													</div>
-												</ul>
+																<div ng-show="showPlayers">		
+																<ol type="1">											
+																	<div ng-repeat="player in players">	
+																		<li class="gamePlayersText col-xs-offset-2">
+																			{{ player.fields.user_name }} - {{ player.fields.contact_info}}
+																		</li>
+																	</div>
+																</ol>	
+																<button class="btn btn-info" ng-show="{{ (session.fields.needed_players - session.fields.interested_players.length) > 0 }}">
+																	Join Session
+																</button>
+																</div>
+															</ul>
+										
+														</div>
+													</ul>
+												</div>
+												<button class="btn btn-danger col-xs-offset-5" ng-click="showSessions=!showSessions">-:Close Tab:-</button>
 											</div>
 										</div>
 									</div>
@@ -73,9 +109,12 @@
 		{% endverbatim %} <!-- END content -->
 		</div> <!-- END container -->
 
-		<link href='http://fonts.googleapis.com/css?family=Ubuntu:bold' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Ubuntu:bold' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+			<script src="{% static 'js/typehead.js' %}"></script>
 			<script src="{% static 'angular/index.js' %}"></script>
+			
 		{% endblock %}
 	</body>
 

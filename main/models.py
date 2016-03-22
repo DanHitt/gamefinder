@@ -2,19 +2,21 @@ from __future__ import unicode_literals
 from django.db import models
 from gamefinder.local_settings import local_GoogleAPI_key
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.models import User, Group
 from gamefinder.local_settings import local_GoogleAPI_key
 import googlemaps
 
 
 
 class Player(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	user_name = models.CharField(max_length=70)
 	# icon 
 	fname = models.CharField(max_length=70, null=True, blank=True)
 	lname = models.CharField(max_length=70, null=True, blank=True)
 	
 	email = models.EmailField(max_length=254, null=True, blank=True)
+	contact_info = models.CharField(max_length=70, null=True, blank=True)
 	favorite_game = models.CharField(max_length=70, null=True, blank=True)
 
 	MALE = 'M'
@@ -32,8 +34,11 @@ class Player(models.Model):
 		return self.user_name
 
 
+	def save(self):
 
 
+		self.user.groups.add(Group.objects.get(name='Players')) #auto add group(Players) to all new users
+		super(Player, self).save()
 
 
 class GameStore(models.Model):

@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',) #all auth
-SITE_ID = 3 #allauth - in the django admin under "sites" this refers to the site you are testing/using
+SITE_ID = 4 #allauth - in the django admin under "sites" this refers to the site you are testing/using
 
 
 
@@ -43,12 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #3rd party apps
+    #django-allauth
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    #crispy-forms
     'crispy_forms',
+    #django-autofixture
     'autofixture',
     'djng',
     #local apps
@@ -88,10 +91,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gamefinder.wsgi.application'
 
 
+
 # ACCOUNT_ADAPTER = 'project.users.allauth.AccountAdapter'  #allauth
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
  
-# auth and allauth settings
+# allauth settings
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/'
@@ -104,7 +108,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #allauth
-
+#end allauth settings
 
 
 
